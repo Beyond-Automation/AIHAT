@@ -4,7 +4,7 @@
 
 ![PowerShell](https://img.shields.io/badge/PowerShell-7+-5391FE)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-In%20Development-blue)
+![Version](https://img.shields.io/badge/Version-0.4.0-blue)
 ![CI](https://github.com/Beyond-Automation/AIHAT/actions/workflows/powershell-ci.yml/badge.svg)
 
 ---
