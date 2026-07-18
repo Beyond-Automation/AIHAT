@@ -40,7 +40,7 @@ AIHAT (AI Infrastructure Health Audit Toolkit) is an open-source PowerShell tool
 
 # Version 0.4 - Reporting
 
-- [ ] HTML Report
+- [x] HTML Report
 - [ ] JSON Export
 - [ ] CSV Export
 - [ ] Health Score
