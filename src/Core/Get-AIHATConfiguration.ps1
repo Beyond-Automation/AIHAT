@@ -9,6 +9,6 @@ function Get-AIHATConfiguration {
         ProjectRoot = $projectRoot
         LogPath     = Join-Path -Path $projectRoot -ChildPath 'Logs'
         ReportPath  = Join-Path -Path $projectRoot -ChildPath 'Reports'
-        Version     = '0.2.0'
+        Version     = '0.4.0'
     }
 }

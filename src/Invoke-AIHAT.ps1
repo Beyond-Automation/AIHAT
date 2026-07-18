@@ -10,6 +10,7 @@ function Invoke-AIHAT {
     . (Join-Path -Path $corePath -ChildPath 'Get-AIHATConfiguration.ps1')
     . (Join-Path -Path $corePath -ChildPath 'Write-AIHATLog.ps1')
     . (Join-Path -Path $corePath -ChildPath 'Show-AIHATDashboard.ps1')
+    . (Join-Path -Path $corePath -ChildPath 'New-AIHATReport.ps1')
     . (Join-Path -Path $modulePath -ChildPath 'Get-SystemHealth.ps1')
     . (Join-Path -Path $modulePath -ChildPath 'Get-WindowsUpdateHealth.ps1')
 
@@ -59,8 +60,18 @@ function Invoke-AIHAT {
             2
         )
         LogFilePath         = [System.IO.Path]::GetFullPath($script:LogFile)
+        ReportFilePath      = $null
         SystemHealth        = $systemHealth
         WindowsUpdateHealth = $windowsUpdateHealth
+    }
+
+    try {
+        $reportFilePath = New-AIHATReport -Result $result -OutputDirectory $config.ReportPath
+        $result.ReportFilePath = $reportFilePath
+        Write-AIHATLog -Level SUCCESS -Message "HTML report generated at $reportFilePath"
+    }
+    catch {
+        Write-AIHATLog -Level ERROR -Message "HTML report generation failed: $($_.Exception.Message)"
     }
 
     Show-AIHATDashboard -Result $result

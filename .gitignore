@@ -429,3 +429,6 @@ FodyWeavers.xsd
 *.msp
 # AIHAT runtime logs
 Logs/*.log
+
+# AIHAT generated HTML reports
+Reports/*.html

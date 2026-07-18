@@ -17,18 +17,18 @@ AIHAT (AI Infrastructure Health Audit Toolkit) is an open-source PowerShell tool
 
 ---
 
-# Version 0.2 - Core Engine
+# Version 0.2 - Core Engine ✅
 
-- [ ] Configuration Engine
-- [ ] Invoke-AIHAT
-- [ ] Module Loader
-- [ ] Error Handling
+- [x] Configuration Engine
+- [x] Invoke-AIHAT
+- [x] Module Loader
+- [x] Error Handling
 
 ---
 
 # Version 0.3 - Health Modules
 
-- [ ] Windows Update
+- [x] Windows Update
 - [ ] Microsoft Defender
 - [ ] Disk Health
 - [ ] Network
@@ -40,7 +40,7 @@ AIHAT (AI Infrastructure Health Audit Toolkit) is an open-source PowerShell tool
 
 # Version 0.4 - Reporting
 
-- [ ] HTML Report
+- [x] HTML Report
 - [ ] JSON Export
 - [ ] CSV Export
 - [ ] Health Score

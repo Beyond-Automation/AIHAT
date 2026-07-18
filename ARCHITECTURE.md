@@ -27,10 +27,14 @@ Aggregate Results
       ▼
 Generate Output
       │
-      ├── Console
-      ├── JSON
-      └── HTML (planned)
+      ├── Console (Show-AIHATDashboard)
+      ├── JSON (planned)
+      └── HTML (New-AIHATReport)
 ```
+
+## Reporting Engine
+
+`New-AIHATReport` (`src/Core/New-AIHATReport.ps1`) consumes the completed result object and produces a timestamped, self-contained HTML report (`Reports\AIHAT_yyyy-MM-dd_HHmmss.html`, embedded CSS, HTML-encoded dynamic values). `Invoke-AIHAT` calls it after aggregating results and before displaying the console dashboard; failure is non-fatal — it is logged as an `ERROR` and the run continues with `ReportFilePath` left as `$null`.
 
 ## Project Structure
 
