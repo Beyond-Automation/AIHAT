@@ -1,0 +1,68 @@
+name: Bug report
+description: Report a reproducible problem with AIHAT
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve AIHAT.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem description
+      description: Clearly describe what went wrong.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide the commands and steps needed to reproduce the issue.
+      placeholder: |
+        1. Run...
+        2. Observe...
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: AIHAT version
+      placeholder: 0.2.0
+    validations:
+      required: true
+
+  - type: input
+    id: powershell
+    attributes:
+      label: PowerShell version
+      placeholder: 7.6.3
+    validations:
+      required: true
+
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating system
+      placeholder: Windows 11 Pro
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Relevant output or logs
+      description: Remove computer names, usernames, paths, credentials, or other sensitive information.
+      render: shell
+
+  - type: checkboxes
+    id: security
+    attributes:
+      label: Security confirmation
+      options:
+        - label: I have removed sensitive information from this report.
+          required: true

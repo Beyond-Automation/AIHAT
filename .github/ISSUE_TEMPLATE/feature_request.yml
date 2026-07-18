@@ -1,0 +1,43 @@
+name: Feature request
+description: Suggest an improvement or new capability for AIHAT
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or operational need
+      description: What infrastructure problem would this feature address?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the capability or behavior you would like.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe any scripts, tools, or workarounds currently used.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature category
+      options:
+        - Health module
+        - Reporting
+        - Security
+        - Configuration
+        - Testing
+        - Documentation
+        - User experience
+        - Other
+    validations:
+      required: true
