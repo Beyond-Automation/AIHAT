@@ -1,0 +1,105 @@
+name: PowerShell CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate PowerShell
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install test modules
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+
+          Install-Module PSScriptAnalyzer `
+            -Scope CurrentUser `
+            -Force
+
+          Install-Module Pester `
+            -Scope CurrentUser `
+            -MinimumVersion 5.0.0 `
+            -Force `
+            -SkipPublisherCheck
+
+      - name: Validate PowerShell syntax
+        shell: pwsh
+        run: |
+          $errorsFound = $false
+
+          Get-ChildItem `
+            -Path ./src, ./tests `
+            -Filter *.ps1 `
+            -Recurse |
+          ForEach-Object {
+              $tokens = $null
+              $errors = $null
+
+              [void][System.Management.Automation.Language.Parser]::ParseFile(
+                  $_.FullName,
+                  [ref]$tokens,
+                  [ref]$errors
+              )
+
+              if ($errors.Count -gt 0) {
+                  $errorsFound = $true
+
+                  Write-Host "Syntax errors in $($_.FullName)" `
+                      -ForegroundColor Red
+
+                  $errors |
+                      ForEach-Object {
+                          Write-Host $_.Message -ForegroundColor Red
+                      }
+              }
+          }
+
+          if ($errorsFound) {
+              throw 'PowerShell syntax validation failed.'
+          }
+
+      - name: Run PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          $results = Invoke-ScriptAnalyzer `
+              -Path ./src `
+              -Recurse `
+              -Settings ./PSScriptAnalyzerSettings.psd1 `
+              -Severity Error,Warning
+
+          $results | Format-Table -AutoSize
+
+          if ($results) {
+              throw "PSScriptAnalyzer found $($results.Count) issue(s)."
+          }
+
+      - name: Run Pester tests
+        shell: pwsh
+        run: |
+          $configuration = New-PesterConfiguration
+
+          $configuration.Run.Path = './tests'
+          $configuration.Run.PassThru = $true
+          $configuration.Output.Verbosity = 'Detailed'
+
+          $result = Invoke-Pester `
+              -Configuration $configuration
+
+          if ($result.FailedCount -gt 0) {
+              throw "$($result.FailedCount) Pester test(s) failed."
+          }
+
